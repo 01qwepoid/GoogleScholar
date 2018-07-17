@@ -17,7 +17,6 @@ driver.set_page_load_timeout(30) #if not loaded, closes after the given time
 assert 'Google' in driver.title #check if right page is loaded
 elem = driver.find_element_by_name('q') #find the search box
 elem.clear() #cleaer the search box of old queries
-
 ##TODO## -------- make a list for all names 
 text = 'Prashant Singh Rana' #test to be searches
 
@@ -26,6 +25,8 @@ elem.send_keys(Keys.RETURN) #hits enter
 assert 'No results found.' not in driver.page_source #check if results are actually present
 
 ##TODO ------- make more general
+#id = driver.find_element_by_xpath('/html/body/div/div[11]/div[2]/div[2]/div[2]/div[1]/table/tbody/tr/td[2]/h4/a').get('href')
+##
 res = requests.get('https://scholar.google.co.in/scholar?hl=en&as_sdt=0%2C5&q=prashant+singh+rana&btnG=') #url for rana sir's profile
 res.raise_for_status() #check the availability
 soup = bs4.BeautifulSoup(res.text,"html.parser") #apply bs4 to search results page
@@ -72,9 +73,9 @@ for i in range(len(soup.select("td[class='gsc_a_y'] > span"))):
 print('hey3')
 teacher1 = list(zip(titles,collaborators,pubtype,citedby,year))
 df = pd.DataFrame(data = teacher1, columns=['Title', 'Collaborators','Publication','Cited By','Year'])
-df.to_csv('C:/Users/Shubham/Desktop/Python Automate/Scholar/tdata2.csv',index=False)
+df.to_csv('/media/shubham/3222630D2262D57F/Users/Shubham/Desktop/Python Automate/Github/GoogleScholar/tdata2.csv',index=True)
 
-nowread = pd.read_csv('C:/Users/Shubham/Desktop/Python Automate/Scholar/tdata2.csv')
+nowread = pd.read_csv('/media/shubham/3222630D2262D57F/Users/Shubham/Desktop/Python Automate/Github/GoogleScholar/tdata2.csv')
 print(nowread.head())
 
 #d = {'Title': {ttl}}.format(ttl=titles)#
